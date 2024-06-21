@@ -21,3 +21,31 @@ The program includes basic input validation to ensure that deposits and withdraw
 5. Encapsulation:
 
 The BankAccount class keeps its variables private and provides public methods to access and modify them, demonstrating encapsulation.
+
+//////////////////////////////////////////
+Enhanced Features (Optional):
+To make it more robust and feature-rich, consider adding the following enhancements:
+
+1. Interest Calculation:
+
+Add functionality to calculate interest on the balance.
+
+2. Transaction History:
+
+Maintain and display a history of all transactions.
+
+3. Account Types:
+
+Introduce different account types (e.g., SavingsAccount, CheckingAccount) using inheritance.
+
+4. Fund Transfer:
+
+Allow transferring funds between different accounts.
+
+5.File I/O:
+
+Save and load account details and transaction history to and from files.
+
+6. GUI:
+
+Create a graphical user interface for better user interaction.
