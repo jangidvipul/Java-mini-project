@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankingApplication {
@@ -21,6 +22,7 @@ class BankAccount {
     private int previousTransaction;
     private String customerName;
     private String customerId;
+    private ArrayList<String> miniStatement = new ArrayList<>();
 
     public BankAccount(String customerName, String customerId) {
         this.customerName = customerName;
@@ -35,15 +37,19 @@ class BankAccount {
         if (amount > 0) {
             balance += amount;
             previousTransaction = amount;
+            miniStatement.add("Deposited: " + amount);
         } else {
             System.out.println("Please enter a valid amount.");
         }
     }
 
     public void withdraw(int amount) {
-        if (amount > 0) {
+        if (amount > 0 && amount <= balance) {
             balance -= amount;
             previousTransaction = -amount;
+            miniStatement.add("Withdrawn: " + amount);
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance.");
         } else {
             System.out.println("Please enter a valid amount.");
         }
@@ -59,6 +65,13 @@ class BankAccount {
         }
     }
 
+    public void showMiniStatement() {
+        System.out.println("Mini Statement:");
+        for (String transaction : miniStatement) {
+            System.out.println(transaction);
+        }
+    }
+
     public void showMenu() {
         char option = '\0';
         Scanner sc = new Scanner(System.in);
@@ -70,9 +83,11 @@ class BankAccount {
         System.out.println("B. Deposit");
         System.out.println("C. Withdraw");
         System.out.println("D. Previous Transaction");
-        System.out.println("E. Exit");
+        System.out.println("E. Mini Statement");
+        System.out.println("F. Exit");
 
-        do {
+        while (option != 'F') 
+        {
             System.out.println("=================");
             System.out.println("Enter an option:");
             System.out.println("=================");
@@ -87,12 +102,14 @@ class BankAccount {
                 case 'B':
                     System.out.println("Enter amount to deposit:");
                     int amount = sc.nextInt();
+                    sc.nextLine(); // Consume the newline character
                     deposit(amount);
                     break;
 
                 case 'C':
                     System.out.println("Enter amount to withdraw:");
                     int withdrawAmount = sc.nextInt();
+                    sc.nextLine(); // Consume the newline character
                     withdraw(withdrawAmount);
                     break;
 
@@ -102,14 +119,19 @@ class BankAccount {
                     break;
 
                 case 'E':
-                    System.out.println("Exiting the menu.");
+                    System.out.println("Showing mini statement:");
+                    showMiniStatement();
+                    break;
+
+                case 'F':
+               System.out.println("Exiting the menu.");
                     break;
 
                 default:
                     System.out.println("Invalid option! Please try again.");
             }
 
-        } while (option != 'E');
+        }
 
         sc.close();
     }
